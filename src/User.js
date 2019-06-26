@@ -1,16 +1,28 @@
-import React from 'react';
-import User from './User'
-import './App.css';
+import React, { Component } from 'react'
+import {BrowserRouter as Router, Route } from 'react-router-dom';
+import GameSettings from './GameSettings'
+import Game from './Game'
 
-function App() {
-  return (
-    <div className="App">
-      <User />
-    </div>
-  );
+export default class User extends Component {
+
+
+
+  render() {
+    return(
+      <React.Fragment>
+        <h1>THIS IS USER COMPONENT</h1>
+        <button onClick={ () => console.log("Settings, bruh") }>Settings</button>
+        <div className="report">
+          <p>This is the report div</p>
+        </div>
+        <Router>
+          <Route exact path="/game-settings" component={GameSettings} />
+          <Route exact path="/game" component={Game} />
+        </Router>
+      </React.Fragment>
+    )
+  }
 }
-
-export default App
 
 // From App.js
 
@@ -41,24 +53,3 @@ export default App
     // };
     //
     // export default App
-
-
-
-// From NavBar.js
-    // export default App;
-    //
-    //
-    // import { NavLink } from 'react-router-dom';
-    //
-    // const NavBar = () => {
-    //   return (
-    //     <div className="navbar">
-    //       <NavLink to="/">Home</NavLink>
-    //       <NavLink to="/movies">Movies</NavLink>
-    //       <NavLink to="/directors">Directors</NavLink>
-    //       <NavLink to="/actors">Actors</NavLink>
-    //     </div>
-    //   );
-    // };
-    //
-    // export default NavBar;
