@@ -24,42 +24,12 @@ export default class GameSettings extends Component {;
           <option value="Tone">Tone</option>
           <option value="Interval">Interval</option>
         </select>
-        {(this.state.game_type === "") ? console.log("Please select a game type!") : console.log("Well, okay!")}
+        {(this.state.game_type === "") ? console.log("Please select a game type!") :
+          (this.state.game_type === "Tone") ? console.log("You've selected Tone!") : console.log("You've selected Interval!")
+        }
       </React.Fragment>
 
     )
   }
 
 }
-
-// From Hogwarts//App.js
-    // class App extends Component {
-    //   state = {
-    //     greased: false,
-    //     sortBy: "",
-    //     banished: [],
-    //     showBanished: false
-    //   };
-    //
-    //   handleSelectChange = e => {
-    //   this.setState({ sortBy: e.target.value });
-    // };
-
-
-
-
-
-// From Hogwarts//Filter.js
-    // <select
-    //   className="ui selection dropdown"
-    //   name="sort"
-    //   onChange={handleSelectChange}
-    //   value={sortBy}>
-    //   <option value="name">Name</option>
-    //   <option value="weight">Weight</option>
-    // </select>
-
-
-
-
-// attached game_type selector. No logic currently in place.
