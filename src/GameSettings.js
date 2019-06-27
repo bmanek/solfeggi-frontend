@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Game from './Game'
 
 export default class GameSettings extends Component {;
 
@@ -6,7 +7,7 @@ export default class GameSettings extends Component {;
     super()
     this.state = {
       game_type: "",
-      active_tones: [],
+      active_tones: [440.00, 493.88, 523.25, 587.33],
       active_intervals: []
     }
   }
@@ -25,7 +26,9 @@ export default class GameSettings extends Component {;
           <option value="Interval">Interval</option>
         </select>
         {(this.state.game_type === "") ? console.log("Please select a game type!") :
-          (this.state.game_type === "Tone") ? console.log("You've selected Tone!") : console.log("You've selected Interval!")
+          (this.state.game_type === "Tone") ?
+          <Game options={this.state.active_tones} /> :
+          <Game options={this.state.active_intervals} />
         }
       </React.Fragment>
 
