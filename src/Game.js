@@ -6,7 +6,7 @@ export default class Game extends Component {
   randomFreq = this.props.options[Math.floor(Math.random() *
     this.props.options.length)]
 
-  handleSound(num) {
+  createRandomTone(num) {
     let AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = new AudioContext()
     let oscillator = audioCtx.createOscillator()
@@ -15,7 +15,7 @@ export default class Game extends Component {
     oscillator.start()
     oscillator.stop(.8)
     oscillator.connect(audioCtx.destination)
-    console.log(num)
+    this.props.holdAnswer(num)
   }
 
 // Desired behavior: Randomly assign a pitch (selected from state) to that round
@@ -46,7 +46,7 @@ export default class Game extends Component {
     return(
       <React.Fragment>
         <h1>THIS IS THE GAME COMPONENT</h1>
-        <button onClick={() => this.handleSound(this.randomFreq)}>Random Tone</button>
+        <button onClick={() => this.createRandomTone(this.randomFreq)}>Random Tone</button>
       </React.Fragment>
     )
   }

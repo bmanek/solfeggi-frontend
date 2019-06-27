@@ -7,6 +7,7 @@ export default class GameSettings extends Component {;
     super()
     this.state = {
       game_type: "",
+      answer: "",
       active_tones: [440.00, 493.88, 523.25, 587.33],
       active_intervals: []
     }
@@ -14,6 +15,13 @@ export default class GameSettings extends Component {;
 
   handleGameType(event) {
     this.setState({ game_type: event.target.value })
+  }
+
+  holdAnswer = (genAnswer) => {
+    this.setState({
+      answer: genAnswer
+    })
+
   }
 
   render() {
@@ -27,7 +35,8 @@ export default class GameSettings extends Component {;
         </select>
         {(this.state.game_type === "") ? console.log("Please select a game type!") :
           (this.state.game_type === "Tone") ?
-          <Game options={this.state.active_tones} /> :
+          <Game holdAnswer={this.holdAnswer}
+          options={this.state.active_tones} /> :
           <Game options={this.state.active_intervals} />
         }
       </React.Fragment>
@@ -36,3 +45,6 @@ export default class GameSettings extends Component {;
   }
 
 }
+
+// The second Game component is the Interval Game. Currently not passing props
+// or building logic since it is higher complexity / lower priority.
