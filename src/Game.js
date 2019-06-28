@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Button from './Button'
 
 
 export default class Game extends Component {
@@ -17,13 +18,6 @@ export default class Game extends Component {
     oscillator.connect(audioCtx.destination)
     this.props.holdAnswer(num)
   }
-
-// Desired behavior: Randomly assign a pitch (selected from state) to that round
-// For the duration of the round, the pitch MUST PERSIST.
-//    currently SOLVED, but now it doesn't generate any new randoms.
-// The pitch can be reassigned at the start of the next round.
-// How does the app understand when a round begins / ends?
-
 
 
 // FULL GAME LOGIC
@@ -47,6 +41,10 @@ export default class Game extends Component {
       <React.Fragment>
         <h1>THIS IS THE GAME COMPONENT</h1>
         <button onClick={() => this.createRandomTone(this.randomFreq)}>Random Tone</button>
+        <br></br>
+        <br></br>
+        <br></br>
+        {this.props.options.map(option => <Button />)}
       </React.Fragment>
     )
   }
