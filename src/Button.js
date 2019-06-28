@@ -5,7 +5,7 @@ export default class Button extends Component {
   render(){
     return(
       <React.Fragment>
-        <button></button>
+        <button onClick={this.props.handleComparison}>{this.props.pitch}</button>
       </React.Fragment>
     )
   }
