@@ -19,16 +19,38 @@ export default class Game extends Component {
     this.props.handleAnswer(num.tone.split(" ")[0])
   }
 
+
+// Seems like we had one successful POST to the backend, but this is starting
+// to get mean. Hardcoded data is no bueno, but this is a first pass to check
+// routes and all that. Not too happy to leave an incomplete function for future
+// me to play with, but I'm getting tired and it's late.
+//
+// Other context to the problem: server returns error
+// Unhandled Rejection (SyntaxError): Unexpected end of JSON input
+// and it's pointing to the fetch line (ln 34). Good luck, bud.
+
   handleComparison = (event) => {
     (event.target.innerHTML === this.props.answer) ?
-    console.log("Good job, buddy!") :
-    console.log("Keep at it, chief.")
+    console.log("Yay, correct! Change button to green") :
+      fetch('http://localhost:3000/api/v1/sessions', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          "user_id": 2,
+          "game_type": "tone",
+          "total_questions": 25,
+          "number_wrong": 3,
+          "type_wrong": "C"
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
   }
-  //
-  // (event.target.dataset.tone === this.props.answer) ? console.log("Yay, you did it!") :
-  // console.log("Boo, try harder!")
-
-  // currently the frequency saves in dataset, not state. Is that good?
 
   render() {
     return(
