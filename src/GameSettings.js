@@ -8,16 +8,7 @@ export default class GameSettings extends Component {;
     this.state = {
       game_type: "",
       answer: "",
-      active_tones: [
-        {"tone": "A 4",
-         "freq": 440.00},
-        {"tone": "B 4",
-         "freq": 493.88},
-        {"tone": "C 5",
-         "freq": 523.25},
-        {"tone": "D 5",
-         "freq": 587.33}
-      ],
+      active_tones: [],
       active_intervals: [],
       all_tones: [
         {"tone": "A 3",
@@ -105,6 +96,10 @@ export default class GameSettings extends Component {;
     })
   }
 
+  handleToneSelection = () => {
+
+  }
+
 
   render() {
     return(
@@ -116,11 +111,14 @@ export default class GameSettings extends Component {;
           <option value="Interval">Interval</option>
           <option value="Keyboard">Keyboard</option>
         </select>
+        <br>
+        </br>
         {(this.state.game_type === "") ? <p>Please select a game type!</p> :
           (this.state.game_type === "Tone") ?
           <Game options={this.state.active_tones}
                 answer={this.state.answer}
-                handleAnswer={this.handleAnswer}/> :
+                handleAnswer={this.handleAnswer}/>
+           :
           (this.state.game_type === "Interval") ?
           <Game options={this.state.active_intervals} /> :
           (this.state.game_type === "Keyboard") ?
@@ -131,3 +129,9 @@ export default class GameSettings extends Component {;
   }
 
 }
+
+
+
+// (this.state.all_tones.map((tone) => {
+//   return(<button>{tone.tone}</button>)
+// }))
