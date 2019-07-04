@@ -8,7 +8,13 @@ export default class GameSettings extends Component {;
     this.state = {
       game_type: "",
       answer: "",
-      active_tones: [],
+      active_tones: [
+        {"tone": "A 4",
+         "freq": 440.00},
+
+        {"tone": "B 4",
+         "freq": 493.88},
+      ],
       active_intervals: [],
       all_tones: [
         {"tone": "A 3",

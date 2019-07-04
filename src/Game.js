@@ -9,7 +9,8 @@ export default class Game extends Component {
     this.state = {
       question_no: 0,
       responded: false,
-      is_correct: false
+      is_correct: false,
+      correct_no: 0
     }
   }
 
@@ -21,8 +22,6 @@ export default class Game extends Component {
       responded: true
     })
   }
-
-
 
 // What are the conditions of a guess?
 // [ANSWER BUTTONS DON'T APPEAR UNTIL 'HEAR TONE' IS PRESSED]
@@ -131,6 +130,7 @@ export default class Game extends Component {
     return(
       <React.Fragment>
         <h1>THIS IS THE GAME COMPONENT</h1>
+        <p>{this.state.correct_no} of {this.state.question_no} correct</p>
         <button onClick={(event) => this.assignQuizTone(this.generateRandomFreq, event)}>Random Tone</button>
         <br></br>
         <br></br>
