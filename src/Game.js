@@ -9,7 +9,6 @@ export default class Game extends Component {
     this.state = {
       question_no: 0,
       responded: false,
-      is_correct: false,
       correct_no: 0
     }
   }
@@ -56,7 +55,7 @@ export default class Game extends Component {
     // handleGuess = (event) => {
     //   this.state.responded === false ?
     //     event.target.value === this.props.answer ?
-    //       increaseTotal()
+    //       incrementTotal()
     //       increaseTotalCorrect()
     //       button.changeColor(green)
     //       console.log("Way to go!")
@@ -64,7 +63,7 @@ export default class Game extends Component {
     //       [prepare State to generate another random tone]
     //       getNewButtons() :
     //       POST fetch method
-    //       increaseTotal()
+    //       incrementTotal()
     //       button.changeColor(red)
     //       console.log("Sorry, "{this.tone}" isn't correct") :
     //       event.target.value === this.props.answer ?
@@ -78,9 +77,19 @@ export default class Game extends Component {
     // }
 
 
+  incrementTotal = () => {
+    let newTotal = (this.state.question_no + 1)
+    this.setState({
+      question_no: newTotal
+    })
+  }
 
-
-
+  incrementCorrect = () => {
+    let newCorrect = (this.state.correct_no + 1)
+    this.setState({
+      correct_no: newCorrect
+    })
+  }
 
 
   assignQuizTone(num, event) {
@@ -101,9 +110,10 @@ export default class Game extends Component {
   // this.props.handleAnswer(num.tone.split(" ")[0])
 
   handleComparison = (event) => {
-    (this.state.responded === false) ?
-    (event.target.innerHTML === this.props.answer) ?
-    console.log("Yay, correct! Change button to green") :
+    this.incrementTotal
+    ((this.state.responded === false) && (event.target.innerHTML === this.props.answer))
+     ? this.incrementCorrect()
+     :
       fetch('http://localhost:3000/api/v1/sessions', {
         method: 'POST',
         headers: {
@@ -123,7 +133,6 @@ export default class Game extends Component {
         console.log(data)
       })
       .then( () => {this.handleFirstGuess()})
-      : console.log(event.currentTarget.innerHTML)
   }
 
   render() {
@@ -138,7 +147,7 @@ export default class Game extends Component {
         {this.props.options.map(note => <Button key={note.tone}
         pitch={note.tone.split(" ")[0]}
         handleComparison={this.handleComparison}
-        toneDetails={note}/>)}
+        toneDetails={note} />)}
       </React.Fragment>
     )
   }
