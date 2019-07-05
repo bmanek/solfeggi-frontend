@@ -14,8 +14,9 @@ export default class Game extends Component {
     }
   }
 
-  generateRandomFreq = this.props.options[Math.floor(Math.random() *
-    this.props.options.length)]
+  generateRandomFreq = () => {
+    return (this.props.options[Math.floor(Math.random() *
+    this.props.options.length)]) }
 
   handleFirstGuess = () => {
     this.setState({
@@ -52,8 +53,9 @@ export default class Game extends Component {
   }
 
   assignQuizTone(num, event) {
-    this.createTone(num, event)
-    this.props.handleAnswer(num.tone.split(" ")[0])
+    let randomTone = num()
+    this.createTone(randomTone, event)
+    this.props.handleAnswer(randomTone.tone.split(" ")[0])
     this.clearBoard()
   }
 
@@ -103,6 +105,9 @@ export default class Game extends Component {
       this.incrementTotal()
       this.reportError(event)
       this.handleFirstGuess()
+    }
+    if (event.target.innerHTML === this.props.answer) {
+      this.toggleRoundComplete()
     }
   }
 
