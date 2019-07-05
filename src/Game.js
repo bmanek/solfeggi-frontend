@@ -10,7 +10,8 @@ export default class Game extends Component {
       question_no: 0,
       responded: false,
       correct_no: 0,
-      completed: false
+      completed: false,
+      toneGenerated: false
     }
   }
 
@@ -41,7 +42,15 @@ export default class Game extends Component {
   toggleRoundComplete = () => {
     this.setState({
       completed: !this.state.completed,
-      responded: !this.state.completed
+      responded: !this.state.completed,
+      toneGenerated: false
+    })
+  }
+
+  toggleToneGeneration = () => {
+    let toneSetting = !this.state.toneGenerated
+    this.setState({
+      toneGenerated: toneSetting
     })
   }
 
@@ -53,10 +62,13 @@ export default class Game extends Component {
   }
 
   assignQuizTone(num, event) {
-    let randomTone = num()
-    this.createTone(randomTone, event)
-    this.props.handleAnswer(randomTone.tone.split(" ")[0])
-    this.clearBoard()
+    if (this.state.toneGenerated === false) {
+      let randomTone = num()
+      let newToneInState = this.createTone(randomTone, event)
+      this.props.handleAnswer(randomTone.tone.split(" ")[0])
+      this.clearBoard()
+      this.toggleToneGeneration()
+    }
   }
 
   createTone(num, event) {
@@ -70,6 +82,9 @@ export default class Game extends Component {
     oscillator.connect(audioCtx.destination)
   }
   // this.props.handleAnswer(num.tone.split(" ")[0])
+
+
+  // I'm thinking about a hard re-render / decomposition of the createTone, assignQuizTone, and ...what else? method chain. I REALLY don't like how hard it currently is to figure out what's happening in that sequence or separate concerns. I just wanna be able to create fun noises, man.
 
   reportError = (event) => {
     fetch('http://localhost:3000/api/v1/sessions', {
@@ -98,6 +113,7 @@ export default class Game extends Component {
       this.incrementCorrect()
       this.handleFirstGuess()
       this.toggleRoundComplete()
+      this.toggleToneGeneration()
       this.props.clearAnswer()
     }
     if ((this.state.responded === false) && (event.target.innerHTML !==
@@ -121,13 +137,22 @@ export default class Game extends Component {
         <button onClick={(event) =>
           this.assignQuizTone(this.generateRandomFreq, event)}>Hear Tone</
           button>
-        <br></br>
-        <br></br>
-        <br></br>
-        {this.props.options.map(note => <Button key={note.tone}
+        <br/>
+        <br/>
+        <br/>
+
+        {(this.props.game_type === "Tone") ?
+
+        this.props.options.map(note => <Button key={note.tone}
         pitch={note.tone.split(" ")[0]}
         handleComparison={this.handleComparison}
+        toneDetails={note} />)
+        :
+        this.props.options.map(note => <Button key={note.tone}
+        pitch={note.tone}
+        handleComparison={() => this.createTone(this.generateRandomFreq)}
         toneDetails={note} />)}
+
       </React.Fragment>
     )
   }
