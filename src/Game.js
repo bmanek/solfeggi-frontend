@@ -40,14 +40,21 @@ export default class Game extends Component {
   toggleRoundComplete = () => {
     this.setState({
       completed: !this.state.completed,
-      responded: !this.state.responded
+      responded: !this.state.completed
+    })
+  }
+
+  clearBoard = () => {
+    this.setState({
+      completed: false,
+      responded: false
     })
   }
 
   assignQuizTone(num, event) {
-    debugger
     this.createTone(num, event)
     this.props.handleAnswer(num.tone.split(" ")[0])
+    this.clearBoard()
   }
 
   createTone(num, event) {
@@ -83,14 +90,16 @@ export default class Game extends Component {
 
 
   handleComparison = (event) => {
-    if ((this.state.responded === false) && (event.target.innerHTML === this.props.answer)) {
+    if ((this.state.responded === false) && (event.target.innerHTML ===
+      this.props.answer)) {
       this.incrementTotal()
       this.incrementCorrect()
       this.handleFirstGuess()
       this.toggleRoundComplete()
       this.props.clearAnswer()
     }
-    if ((this.state.responded === false) && (event.target.innerHTML !== this.props.answer)) {
+    if ((this.state.responded === false) && (event.target.innerHTML !==
+      this.props.answer)) {
       this.incrementTotal()
       this.reportError(event)
       this.handleFirstGuess()
@@ -104,7 +113,9 @@ export default class Game extends Component {
       <React.Fragment>
         <h1>{this.props.type} Practice</h1>
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
-        <button onClick={(event) => this.assignQuizTone(this.generateRandomFreq, event)}>Hear Tone</button>
+        <button onClick={(event) =>
+          this.assignQuizTone(this.generateRandomFreq, event)}>Hear Tone</
+          button>
         <br></br>
         <br></br>
         <br></br>
