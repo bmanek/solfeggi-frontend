@@ -124,16 +124,16 @@ export default class GameSettings extends Component {;
         {(this.state.game_type === "") ? <p>Please select a game type!</p> :
           (this.state.game_type === "Tone") ?
           <Game clearAnswer={this.clearAnswer}
-                type={this.state.game_type}
+                game_type={this.state.game_type}
                 options={this.state.active_tones}
                 answer={this.state.answer}
                 handleAnswer={this.handleAnswer}/>
            :
           (this.state.game_type === "Interval") ?
-          <Game type={this.state.game_type}
+          <Game game_type={this.state.game_type}
                 options={this.state.active_intervals} /> :
           (this.state.game_type === "Keyboard") ?
-          <Game type={this.state.game_type}
+          <Game game_type={this.state.game_type}
                 options={this.state.all_tones} /> : null
         }
       </React.Fragment>

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Button from './Button'
 
 
+
+
 export default class Game extends Component {
 
   constructor(props) {
