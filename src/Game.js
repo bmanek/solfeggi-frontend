@@ -131,10 +131,13 @@ export default class Game extends Component {
 
   // .then( () => {this.handleFirstGuess()})
 
+  // separate button generation into a method that fires onClick of Hear Tone,
+  // wrap that + current method in a single carrier method.
+
   render() {
     return(
       <React.Fragment>
-        <h1>{this.props.type} Practice</h1>
+        <h1>{this.props.game_type} Practice</h1>
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
         <button onClick={(event) =>
           this.assignQuizTone(this.generateRandomFreq, event)}>Hear Tone</
