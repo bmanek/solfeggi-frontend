@@ -102,6 +102,14 @@ export default class GameSettings extends Component {;
     }
   }
 
+  handleReset = () => {
+    this.setState({
+      answer_freq: 0,
+      answer_pitch: "",
+
+    })
+  }
+
   handleGameType(event) {
     this.setState({ game_type: event.target.value })
   }
@@ -149,7 +157,10 @@ export default class GameSettings extends Component {;
         )
       default:
         return(
-          <p>Please select a game type</p>
+          <React.Fragment>
+            {(this.state.answer_pitch !== "") ? this.handleReset() : null}
+            <p>Please select a game type</p>
+          </React.Fragment>
         )
     }
   }
