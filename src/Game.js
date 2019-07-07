@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import Button from './Button'
 
-
-
-
 export default class Game extends Component {
 
   constructor(props) {
@@ -13,17 +10,21 @@ export default class Game extends Component {
       responded: false,
       correct_no: 0,
       completed: false,
-      toneGenerated: false
+      toneGenerated: false,
+      first: true
     }
   }
 
-  generateRandomFreq = () => {
-    return (this.props.options[Math.floor(Math.random() *
-    this.props.options.length)]) }
 
   handleFirstGuess = () => {
     this.setState({
       responded: true
+    })
+  }
+
+  handleFirstState = () => {
+    this.setState({
+      first: false
     })
   }
 
@@ -63,30 +64,60 @@ export default class Game extends Component {
     })
   }
 
-  assignQuizTone(num, event) {
+  // selectRandomToneObj requires access to props.options (can be
+  // state.active_tones or state.all_tones ) and returns a random tone object
+
+
+  // GETTING RID OF EVENT ARG IN CREATETONE
+  selectRandomToneObj = () => {
+    return (this.props.options[Math.floor(Math.random() *
+      this.props.options.length)]) }
+
+  assignQuizTone(getTone, event) {
     if (this.state.toneGenerated === false) {
-      let randomTone = num()
-      let newToneInState = this.createTone(randomTone, event)
-      this.props.handleAnswer(randomTone.tone.split(" ")[0])
+      this.generateToneAnswerButtons()
+      let randomTone = getTone()
+      let newToneInState = this.createTone(randomTone)
+      this.props.handleAnswerPitch(randomTone.tone.split(" ")[0])
+      this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
       this.toggleToneGeneration()
     }
   }
 
-  createTone(num, event) {
+  playFromState = () => {
     let AudioContext = window.AudioContext || window.webkitAudioContext;
     let audioCtx = new AudioContext()
     let oscillator = audioCtx.createOscillator()
     oscillator.type = "sine"
-    oscillator.frequency.value = num.freq
+    oscillator.frequency.value = this.props.answer_freq
+    oscillator.start()
+    oscillator.stop(.8)
+    oscillator.connect(audioCtx.destination)
+  }
+
+  generateToneAnswerButtons = () => {
+    if (this.state.first === true) {
+      this.props.options.map(note => <Button key={note.tone}
+        pitch={note.tone.split(" ")[0]}
+        handleComparison={this.handleComparison}
+        toneDetails={note} />)
+        this.handleFirstState()
+      }
+    }
+
+// creates oscillator when provided a tone object
+  createTone(toneObj) {
+    let AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = new AudioContext()
+    let oscillator = audioCtx.createOscillator()
+    oscillator.type = "sine"
+    oscillator.frequency.value = toneObj.freq
     oscillator.start()
     oscillator.stop(.8)
     oscillator.connect(audioCtx.destination)
   }
   // this.props.handleAnswer(num.tone.split(" ")[0])
-
-
-  // I'm thinking about a hard re-render / decomposition of the createTone, assignQuizTone, and ...what else? method chain. I REALLY don't like how hard it currently is to figure out what's happening in that sequence or separate concerns. I just wanna be able to create fun noises, man.
 
   reportError = (event) => {
     fetch('http://localhost:3000/api/v1/sessions', {
@@ -110,23 +141,25 @@ export default class Game extends Component {
 
   handleComparison = (event) => {
     if ((this.state.responded === false) && (event.target.innerHTML ===
-      this.props.answer)) {
+      this.props.answer_pitch)) {
       this.incrementTotal()
       this.incrementCorrect()
       this.handleFirstGuess()
       this.toggleRoundComplete()
       this.toggleToneGeneration()
-      this.props.clearAnswer()
+      this.props.clearAnswerPitch()
     }
     if ((this.state.responded === false) && (event.target.innerHTML !==
-      this.props.answer)) {
+      this.props.answer_pitch)) {
       this.incrementTotal()
       this.reportError(event)
       this.handleFirstGuess()
     }
-    if (event.target.innerHTML === this.props.answer) {
+    if (event.target.innerHTML === this.props.answer_pitch) {
       this.toggleRoundComplete()
     }
+    if (this.props.answer_freq !== 0)
+      this.playFromState()
   }
 
   // .then( () => {this.handleFirstGuess()})
@@ -134,32 +167,33 @@ export default class Game extends Component {
   // separate button generation into a method that fires onClick of Hear Tone,
   // wrap that + current method in a single carrier method.
 
+
   render() {
     return(
       <React.Fragment>
         <h1>{this.props.game_type} Practice</h1>
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
-        <button onClick={(event) =>
-          this.assignQuizTone(this.generateRandomFreq, event)}>Hear Tone</
-          button>
-        <br/>
-        <br/>
-        <br/>
-
         {(this.props.game_type === "Tone") ?
-
-        this.props.options.map(note => <Button key={note.tone}
-        pitch={note.tone.split(" ")[0]}
-        handleComparison={this.handleComparison}
-        toneDetails={note} />)
-        :
-        this.props.options.map(note => <Button key={note.tone}
-        pitch={note.tone}
-        handleComparison={() => this.createTone(this.generateRandomFreq)}
-        toneDetails={note} />)}
-
+        <button onClick={(event) =>
+          this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
+          button> :
+        <button onClick={(event) =>
+          this.assignQuizTone(this.selectRandomToneObj, event)}>Play Keyboard</
+          button>
+        }
+          <br/>
+          <br/>
+          <br/>
+        {(this.state.question_no > 0) ?
+        <button>Quit</button> : null}
       </React.Fragment>
     )
   }
 
 }
+//
+//
+// this.props.options.map(note => <Button key={note.tone}
+// pitch={note.tone}
+// handleComparison={() => this.createTone(this.selectRandomToneObj)}
+// toneDetails={note} />)

@@ -7,13 +7,23 @@ export default class GameSettings extends Component {;
     super()
     this.state = {
       game_type: "",
-      answer: "",
+      answer_pitch: "",
+      answer_freq: 0,
       active_tones: [
         {"tone": "A 4",
          "freq": 440.00},
 
         {"tone": "B 4",
          "freq": 493.88},
+
+        {"tone": "C 5",
+         "freq": 523.25},
+
+        {"tone": "D 5",
+         "freq": 587.33},
+
+        {"tone": "E 5",
+         "freq": 659.25}
       ],
       active_intervals: [],
       all_tones: [
@@ -96,17 +106,63 @@ export default class GameSettings extends Component {;
     this.setState({ game_type: event.target.value })
   }
 
-  handleAnswer = (tone) => {
+  handleAnswerPitch = (tone) => {
     this.setState({
-      answer: tone
+      answer_pitch: tone
     })
   }
 
-  clearAnswer = () => {
+  handleAnswerFreq = (freq) => {
     this.setState({
-      answer: ""
+      answer_freq: freq
     })
   }
+
+  clearAnswerPitch = () => {
+    this.setState({
+      answer_pitch: ""
+    })
+  }
+
+  switchGameType = (type) => {
+    switch(type) {
+      case 'Tone':
+        return(
+          <Game handleGameStarted={this.handleGameStarted}
+                clearAnswerPitch={this.clearAnswerPitch}
+                game_type={this.state.game_type}
+                options={this.state.active_tones}
+                answer_pitch={this.state.answer_pitch}
+                answer_freq={this.state.answer_freq}
+                handleAnswerPitch={this.handleAnswerPitch}
+                handleAnswerFreq={this.handleAnswerFreq}/>
+        )
+      case 'Interval':
+        return(
+          <Game game_type={this.state.game_type}
+                options={this.state.active_intervals} />
+        )
+      case 'Keyboard':
+        return(
+          <Game game_type={this.state.game_type}
+                options={this.state.all_tones} />
+        )
+      default:
+        return(
+          <p>Please select a game type</p>
+        )
+    }
+  }
+
+
+  // renderSwitch(param) {
+  //   switch(param) {
+  //     case 'foo':
+  //       return 'bar';
+  //     default:
+  //       return 'foo';
+  //   }
+  // }
 
 
   render() {
@@ -119,23 +175,13 @@ export default class GameSettings extends Component {;
           <option value="Interval">Interval</option>
           <option value="Keyboard">Keyboard</option>
         </select>
+        {this.switchGameType(this.state.game_type)}
         <br>
         </br>
-        {(this.state.game_type === "") ? <p>Please select a game type!</p> :
-          (this.state.game_type === "Tone") ?
-          <Game clearAnswer={this.clearAnswer}
-                game_type={this.state.game_type}
-                options={this.state.active_tones}
-                answer={this.state.answer}
-                handleAnswer={this.handleAnswer}/>
-           :
-          (this.state.game_type === "Interval") ?
-          <Game game_type={this.state.game_type}
-                options={this.state.active_intervals} /> :
-          (this.state.game_type === "Keyboard") ?
-          <Game game_type={this.state.game_type}
-                options={this.state.all_tones} /> : null
-        }
+
+
+
+
       </React.Fragment>
     )
   }
@@ -144,6 +190,28 @@ export default class GameSettings extends Component {;
 
 
 
-// (this.state.all_tones.map((tone) => {
-//   return(<button>{tone.tone}</button>)
-// }))
+
+
+
+
+
+// ATTEMPTING TO RENDER BELOW INTO SWITCH. SORRY MOM
+//
+// {(this.state.game_type === "") ? <p>Please select a game type!</p> :
+// (this.state.game_type === "Tone") ?
+// <Game handleGameStarted={this.handleGameStarted}
+// clearAnswerPitch={this.clearAnswerPitch}
+// game_type={this.state.game_type}
+// options={this.state.active_tones}
+// answer_pitch={this.state.answer_pitch}
+// answer_freq={this.state.answer_freq}
+// handleAnswerPitch={this.handleAnswerPitch}
+// handleAnswerFreq={this.handleAnswerFreq}/>
+// :
+// (this.state.game_type === "Interval") ?
+// <Game game_type={this.state.game_type}
+// options={this.state.active_intervals} /> :
+// (this.state.game_type === "Keyboard") ?
+// <Game game_type={this.state.game_type}
+// options={this.state.all_tones} /> : null
+// }
