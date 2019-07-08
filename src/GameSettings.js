@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Game from './Game'
+import ToneGame from './ToneGame'
+import Keyboard from './Keyboard'
 
 export default class GameSettings extends Component {;
 
@@ -136,10 +138,10 @@ export default class GameSettings extends Component {;
     switch(type) {
       case 'Tone':
         return(
-          <Game handleGameStarted={this.handleGameStarted}
+          <ToneGame handleGameStarted={this.handleGameStarted}
                 clearAnswerPitch={this.clearAnswerPitch}
                 game_type={this.state.game_type}
-                options={this.state.active_tones}
+                active_tones={this.state.active_tones}
                 answer_pitch={this.state.answer_pitch}
                 answer_freq={this.state.answer_freq}
                 handleAnswerPitch={this.handleAnswerPitch}
@@ -147,12 +149,15 @@ export default class GameSettings extends Component {;
         )
       case 'Interval':
         return(
-          <Game game_type={this.state.game_type}
-                options={this.state.active_intervals} />
+          <>
+            <p>Under construction: please select a different mode</p>
+            <Game game_type={this.state.game_type}
+                  options={this.state.active_intervals} />
+          </>
         )
       case 'Keyboard':
         return(
-          <Game game_type={this.state.game_type}
+          <Keyboard game_type={this.state.game_type}
                 options={this.state.all_tones} />
         )
       default:
@@ -164,6 +169,7 @@ export default class GameSettings extends Component {;
         )
     }
   }
+
 
 
   // renderSwitch(param) {
@@ -189,10 +195,6 @@ export default class GameSettings extends Component {;
         {this.switchGameType(this.state.game_type)}
         <br>
         </br>
-
-
-
-
       </React.Fragment>
     )
   }

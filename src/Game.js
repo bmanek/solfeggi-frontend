@@ -178,7 +178,7 @@ export default class Game extends Component {
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
           button> :
         <button onClick={(event) =>
-          this.assignQuizTone(this.selectRandomToneObj, event)}>Play Keyboard</
+          this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Interval</
           button>
         }
           <br/>

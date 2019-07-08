@@ -70,8 +70,8 @@ export default class ToneGame extends Component {
 
   // GETTING RID OF EVENT ARG IN CREATETONE
   selectRandomToneObj = () => {
-    return (this.props.options[Math.floor(Math.random() *
-      this.props.options.length)]) }
+    return (this.props.active_tones[Math.floor(Math.random() *
+      this.props.active_tones.length)]) }
 
   assignQuizTone(getTone, event) {
     if (this.state.toneGenerated === false) {
@@ -98,7 +98,7 @@ export default class ToneGame extends Component {
 
   generateToneAnswerButtons = () => {
     if (this.state.first === true) {
-      this.props.options.map(note => <Button key={note.tone}
+      this.props.active_tones.map(note => <Button key={note.tone}
         pitch={note.tone.split(" ")[0]}
         handleComparison={this.handleComparison}
         toneDetails={note} />)
@@ -173,16 +173,15 @@ export default class ToneGame extends Component {
       <React.Fragment>
         <h1>{this.props.game_type} Practice</h1>
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
-        {(this.props.game_type === "Tone") ?
         <button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
-          button> :
-        <button onClick={(event) =>
-          this.assignQuizTone(this.selectRandomToneObj, event)}>Play Keyboard</
           button>
-        }
           <br/>
           <br/>
+          {(this.state.toneGenerated === true) ?
+            this.props.active_tones.map(tone =>
+            <Button pitch={tone.tone.split(" ")[0]} freq={tone.freq}
+            handleComparison={this.handleComparison} />) : null }
           <br/>
         {(this.state.question_no > 0) ?
         <button>Quit</button> : null}
@@ -193,7 +192,7 @@ export default class ToneGame extends Component {
 }
 //
 //
-// this.props.options.map(note => <Button key={note.tone}
+// this.props.active_tones.map(note => <Button key={note.tone}
 // pitch={note.tone}
 // handleComparison={() => this.createTone(this.selectRandomToneObj)}
 // toneDetails={note} />)
