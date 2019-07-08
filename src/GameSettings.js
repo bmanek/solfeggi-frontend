@@ -134,6 +134,12 @@ export default class GameSettings extends Component {;
     })
   }
 
+  handleQuit = () => {
+    this.setState({
+      game_type: ""
+    })
+  }
+
   switchGameType = (type) => {
     switch(type) {
       case 'Tone':
@@ -145,7 +151,8 @@ export default class GameSettings extends Component {;
                 answer_pitch={this.state.answer_pitch}
                 answer_freq={this.state.answer_freq}
                 handleAnswerPitch={this.handleAnswerPitch}
-                handleAnswerFreq={this.handleAnswerFreq}/>
+                handleAnswerFreq={this.handleAnswerFreq}
+                handleQuit={this.handleQuit}/>
         )
       case 'Interval':
         return(

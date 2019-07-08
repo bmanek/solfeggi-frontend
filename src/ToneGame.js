@@ -184,7 +184,7 @@ export default class ToneGame extends Component {
             handleComparison={this.handleComparison} />) : null }
           <br/>
         {(this.state.question_no > 0) ?
-        <button>Quit</button> : null}
+        <button onClick={this.props.handleQuit}>Quit</button> : null}
       </React.Fragment>
     )
   }
