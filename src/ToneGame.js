@@ -130,7 +130,7 @@ export default class ToneGame extends Component {
           },
           body: JSON.stringify({
               "user_id": 3,
-              "game_type": this.props.type,
+              "game_type": this.props.game_type,
               "type_wrong": event.target.innerText
             })
           })
@@ -173,6 +173,7 @@ export default class ToneGame extends Component {
         <button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
           button>
+          {(this.state.responded === true) && (this.state.completed === true) ? <button onClick={this.playFromState}>Hear Again</button> : null }
           <br/>
           <br/>
           {(this.state.toneGenerated === true) ?
