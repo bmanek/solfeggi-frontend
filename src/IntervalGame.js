@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Button from './Button'
 
-export default class Game extends Component {
+export default class IntervalGame extends Component {
 
   constructor(props) {
     super(props)
@@ -162,25 +162,16 @@ export default class Game extends Component {
       this.playFromState()
   }
 
-  // .then( () => {this.handleFirstGuess()})
-
-  // separate button generation into a method that fires onClick of Hear Tone,
-  // wrap that + current method in a single carrier method.
-
 
   render() {
     return(
       <React.Fragment>
         <h1>{this.props.game_type} Practice</h1>
+        <p>Under Construction</p>
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
-        {(this.props.game_type === "Tone") ?
-        <button onClick={(event) =>
-          this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
-          button> :
         <button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Interval</
           button>
-        }
           <br/>
           <br/>
           <br/>

@@ -169,6 +169,9 @@ export default class ToneGame extends Component {
     return(
       <React.Fragment>
         <h1>{this.props.game_type} Practice</h1>
+        {this.props.all_tones.map(tone => <button 
+          onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</button>
+        )}
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
         <button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</

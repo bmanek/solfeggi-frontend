@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import GameSettings from './GameSettings'
-import Game from './Game'
+import ToneGame from './ToneGame'
+import IntervalGame from './IntervalGame'
 
 export default class User extends Component {
 
@@ -17,7 +18,6 @@ export default class User extends Component {
         </div>
         <Router>
           <Route exact path="/game-settings" component={GameSettings} />
-          <Route exact path="/game" component={Game} />
         </Router>
       </React.Fragment>
     )

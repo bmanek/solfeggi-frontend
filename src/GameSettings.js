@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Game from './Game'
+import IntervalGame from './IntervalGame'
 import ToneGame from './ToneGame'
 import Keyboard from './Keyboard'
 
@@ -104,6 +104,27 @@ export default class GameSettings extends Component {;
     }
   }
 
+// GETTING THE ERRORS: GRABBED IS NOT DEFINED, THIS.STATE.ALL_TONES.FILTER IS
+// NOT A METHOD. I'VE BEEN AT THIS FOR ABOUT AN HOUR AND AM GETTING ANNOYED.
+
+
+  handleToneSelection = (event) => {
+    let selectedTone = this.state.all_tones.find(tone => tone.tone === event.target.innerText)
+    let copy = [...this.state.active_tones]
+    let filteredArray = copy.filter(tone => tone.tone !== selectedTone.tone)
+    console.log(filteredArray)
+    if (this.state.active_tones.find(tone => tone.tone ===
+      event.target.innerText)) {
+      this.setState({
+        active_tones: [...filteredArray]
+      })
+    } else {
+        this.setState({
+          active_tones: [...this.state.active_tones, selectedTone]
+        })
+      }
+  }
+
   handleReset = () => {
     this.setState({
       answer_freq: 0,
@@ -145,6 +166,9 @@ export default class GameSettings extends Component {;
       case 'Tone':
         return(
           <ToneGame handleGameStarted={this.handleGameStarted}
+                all_tones={this.state.all_tones}
+                active_tones={this.state.active_tones}
+                handleToneSelection={this.handleToneSelection}
                 clearAnswerPitch={this.clearAnswerPitch}
                 game_type={this.state.game_type}
                 active_tones={this.state.active_tones}
@@ -156,11 +180,8 @@ export default class GameSettings extends Component {;
         )
       case 'Interval':
         return(
-          <>
-            <p>Under construction: please select a different mode</p>
-            <Game game_type={this.state.game_type}
+            <IntervalGame game_type={this.state.game_type}
                   options={this.state.active_intervals} />
-          </>
         )
       case 'Keyboard':
         return(
@@ -176,18 +197,6 @@ export default class GameSettings extends Component {;
         )
     }
   }
-
-
-
-  // renderSwitch(param) {
-  //   switch(param) {
-  //     case 'foo':
-  //       return 'bar';
-  //     default:
-  //       return 'foo';
-  //   }
-  // }
-
 
   render() {
     return(
