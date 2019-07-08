@@ -82,6 +82,8 @@ export default class ToneGame extends Component {
       this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
       this.toggleToneGeneration()
+    } else if (this.props.answer_freq !== 0) {
+      this.playFromState()
     }
   }
 
@@ -149,23 +151,18 @@ export default class ToneGame extends Component {
       this.toggleToneGeneration()
       this.props.clearAnswerPitch()
     }
-    if ((this.state.responded === false) && (event.target.innerHTML !==
+    else if
+      ((this.state.responded === false) && (event.target.innerHTML !==
       this.props.answer_pitch)) {
       this.incrementTotal()
       this.reportError(event)
       this.handleFirstGuess()
     }
-    if (event.target.innerHTML === this.props.answer_pitch) {
+    else if (event.target.innerHTML === this.props.answer_pitch) {
       this.toggleRoundComplete()
     }
-    if (this.props.answer_freq !== 0)
-      this.playFromState()
   }
-
-  // .then( () => {this.handleFirstGuess()})
-
-  // separate button generation into a method that fires onClick of Hear Tone,
-  // wrap that + current method in a single carrier method.
+// (this.props.answer_freq !== 0)
 
 
   render() {
