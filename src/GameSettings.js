@@ -100,13 +100,87 @@ export default class GameSettings extends Component {;
 
         {"tone": "C 7",
          "freq": 2093.00}
+      ],
+
+
+      keyboard_tones: [
+        {"tone": "C 4",
+         "freq": 261.63},
+
+         {"tone": "C# 4",
+          "freq": 277.18},
+
+        {"tone": "D 4",
+         "freq": 293.66},
+
+         {"tone": "D# 4",
+          "freq": 311.13},
+
+        {"tone": "E 4",
+         "freq": 329.63},
+
+        {"tone": "F 4",
+         "freq": 349.23},
+
+         {"tone": "F# 4",
+          "freq": 369.99},
+
+        {"tone": "G 4",
+         "freq": 392.00},
+
+         {"tone": "G# 4",
+          "freq": 415.30},
+
+        {"tone": "A 4",
+         "freq": 440.00},
+
+         {"tone": "A# 4",
+          "freq": 466.16},
+
+        {"tone": "B 4",
+         "freq": 493.88},
+
+        {"tone": "C 5",
+         "freq": 523.25},
+
+         {"tone": "C# 5",
+          "freq": 554.37},
+
+        {"tone": "D 5",
+         "freq": 587.33},
+
+         {"tone": "D# 5",
+          "freq": 622.25},
+
+        {"tone": "E 5",
+         "freq": 659.25},
+
+        {"tone": "F 5",
+         "freq": 698.46},
+
+         {"tone": "F# 5",
+          "freq": 739.99},
+
+        {"tone": "G 5",
+         "freq": 783.99},
+
+         {"tone": "G# 5",
+          "freq": 830.61},
+
+        {"tone": "A 5",
+         "freq": 880.00},
+
+         {"tone": "A# 5",
+          "freq": 932.33},
+
+        {"tone": "B 5",
+         "freq": 987.77},
+
+        {"tone": "C 6",
+         "freq": 1046.50}
       ]
     }
   }
-
-// GETTING THE ERRORS: GRABBED IS NOT DEFINED, THIS.STATE.ALL_TONES.FILTER IS
-// NOT A METHOD. I'VE BEEN AT THIS FOR ABOUT AN HOUR AND AM GETTING ANNOYED.
-
 
   handleToneSelection = (event) => {
     let selectedTone = this.state.all_tones.find(tone => tone.tone === event.target.innerText)
@@ -186,7 +260,7 @@ export default class GameSettings extends Component {;
       case 'Keyboard':
         return(
           <Keyboard game_type={this.state.game_type}
-                options={this.state.all_tones} />
+                tones={this.state.keyboard_tones} />
         )
       default:
         return(

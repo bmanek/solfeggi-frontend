@@ -47,7 +47,7 @@ export default class Keyboard extends Component {
     return(
       <React.Fragment>
         <h1>Keyboard Practice</h1>
-        <p>Under Construction</p>
+        {this.props.tones.map(tone => <button>{tone.tone}</button>)}
       </React.Fragment>
     )
   }
