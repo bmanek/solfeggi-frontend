@@ -11,10 +11,16 @@ export default class ToneGame extends Component {
       correct_no: 0,
       completed: false,
       toneGenerated: false,
+      grabbed: "",
       first: true
     }
   }
 
+  handleGrabbed = (answer) => {
+    this.setState({
+      grabbed: answer
+    })
+  }
 
   handleFirstGuess = () => {
     this.setState({
@@ -46,7 +52,8 @@ export default class ToneGame extends Component {
     this.setState({
       completed: !this.state.completed,
       responded: !this.state.completed,
-      toneGenerated: false
+      toneGenerated: false,
+      grabbed: ""
     })
   }
 
@@ -140,7 +147,8 @@ export default class ToneGame extends Component {
   }
 
   handleComparison = (event) => {
-    if ((this.state.responded === false) && (event.target.innerHTML ===
+    let grabbed = event.target.innerText
+    if ((this.state.responded === false) && (grabbed ===
       this.props.answer_pitch)) {
         console.log(event.target.innerHTML)
       this.incrementTotal()
@@ -152,19 +160,22 @@ export default class ToneGame extends Component {
 
     }
     else if
-      ((this.state.responded === false) && (event.target.innerHTML !==
+      ((this.state.responded === false) && (grabbed !==
       this.props.answer_pitch)) {
       this.incrementTotal()
       this.reportError(event)
       this.handleFirstGuess()
+      this.handleGrabbed(grabbed)
     }
-    else if (event.target.innerHTML === this.props.answer_pitch) {
+    else if (grabbed === this.props.answer_pitch) {
       this.toggleRoundComplete()
+    }
+    else {
+      this.handleGrabbed(grabbed)
     }
   }
 
   grabAnswer = (event) => {
-    debugger
     console.log(event.target.value)
   }
 
@@ -180,7 +191,9 @@ export default class ToneGame extends Component {
         {this.props.all_tones.map(tone => <button key={tone.freq}
           onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</button>
         )}
-        <p>{this.state.correct_no} of {this.state.question_no} correct</p>
+        <h3>{this.state.correct_no} of {this.state.question_no} correct</h3>
+        {(this.state.grabbed === "") ? null : <p>Sorry, '{this.state.grabbed}'
+            is incorrect</p>}
 
         {(this.state.completed === true && this.state.completed === true) ?
           <p>Correct! Good job!</p> : null}
