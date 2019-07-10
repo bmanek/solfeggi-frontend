@@ -230,8 +230,29 @@ export default class GameSettings extends Component {;
 
   handleQuit = () => {
     this.setState({
-      game_type: ""
+      game_type: "",
+      active_tones: [
+        {"tone": "A 4",
+         "freq": 440.00},
+
+        {"tone": "B 4",
+         "freq": 493.88},
+
+        {"tone": "C 5",
+         "freq": 523.25},
+
+        {"tone": "D 5",
+         "freq": 587.33},
+
+        {"tone": "E 5",
+         "freq": 659.25}
+      ]
     })
+  }
+
+  hardReset = () => {
+    this.handleReset()
+    this.handleQuit()
   }
 
   switchGameType = (type) => {
