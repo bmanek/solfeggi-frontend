@@ -288,31 +288,3 @@ export default class GameSettings extends Component {;
   }
 
 }
-
-
-
-
-
-
-
-
-// ATTEMPTING TO RENDER BELOW INTO SWITCH. SORRY MOM
-//
-// {(this.state.game_type === "") ? <p>Please select a game type!</p> :
-// (this.state.game_type === "Tone") ?
-// <Game handleGameStarted={this.handleGameStarted}
-// clearAnswerPitch={this.clearAnswerPitch}
-// game_type={this.state.game_type}
-// options={this.state.active_tones}
-// answer_pitch={this.state.answer_pitch}
-// answer_freq={this.state.answer_freq}
-// handleAnswerPitch={this.handleAnswerPitch}
-// handleAnswerFreq={this.handleAnswerFreq}/>
-// :
-// (this.state.game_type === "Interval") ?
-// <Game game_type={this.state.game_type}
-// options={this.state.active_intervals} /> :
-// (this.state.game_type === "Keyboard") ?
-// <Game game_type={this.state.game_type}
-// options={this.state.all_tones} /> : null
-// }

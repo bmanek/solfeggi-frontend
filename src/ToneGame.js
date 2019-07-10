@@ -77,7 +77,6 @@ export default class ToneGame extends Component {
     if (this.state.toneGenerated === false) {
       this.generateToneAnswerButtons()
       let randomTone = getTone()
-      // let newToneInState = this.createTone(randomTone)
       this.props.handleAnswerPitch(randomTone.tone.split(" ")[0])
       this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
@@ -130,7 +129,7 @@ export default class ToneGame extends Component {
           body: JSON.stringify({
               "user_id": 3,
               "game_type": this.props.game_type,
-              "type_wrong": event.target.innerText
+              "type_wrong": this.props.answer_pitch
             })
           })
           .then(res => res.json())
