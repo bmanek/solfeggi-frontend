@@ -26,7 +26,6 @@ export default class Keyboard extends Component {
     oscillator.connect(audioCtx.destination)
   }
 
-
   render() {
     return(
       <React.Fragment>
@@ -42,17 +41,15 @@ export default class Keyboard extends Component {
         </br>
         <br>
         </br>
-        {this.props.tones.map(tone => <Ivory name={tone.tone} freq={tone.freq}
+        {this.props.tones.map(tone => <Ivory name={tone.tone} key={tone.tone} freq={tone.freq}
           createTone={this.createTone}
           />)}
+          <h3>Songs!</h3>
+          <p>Legend of Zelda: ?Song? :
+          [Triangle] D4, F4, A4, D4, F4, A4, C5, B4, G4, F4, G4, A4, D4, C4, E4, D4</p>
+          <p>Funky Town: [Sine] B4, B4, A4, F#4, F#4, B4, E5, D#5, B4 </p>
       </React.Fragment>
     )
   }
 
 }
-//
-//
-// this.props.options.map(note => <Button key={note.tone}
-// pitch={note.tone}
-// handleComparison={() => this.createTone(this.selectRandomToneObj)}
-// toneDetails={note} />)

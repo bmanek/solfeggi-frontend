@@ -77,7 +77,7 @@ export default class ToneGame extends Component {
     if (this.state.toneGenerated === false) {
       this.generateToneAnswerButtons()
       let randomTone = getTone()
-      let newToneInState = this.createTone(randomTone)
+      // let newToneInState = this.createTone(randomTone)
       this.props.handleAnswerPitch(randomTone.tone.split(" ")[0])
       this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
@@ -119,7 +119,6 @@ export default class ToneGame extends Component {
     oscillator.stop(.8)
     oscillator.connect(audioCtx.destination)
   }
-  // this.props.handleAnswer(num.tone.split(" ")[0])
 
   reportError = (event) => {
     fetch('http://localhost:3000/api/v1/sessions', {
@@ -140,16 +139,17 @@ export default class ToneGame extends Component {
             })
   }
 
-
   handleComparison = (event) => {
     if ((this.state.responded === false) && (event.target.innerHTML ===
       this.props.answer_pitch)) {
+        console.log(event.target.innerHTML)
       this.incrementTotal()
       this.incrementCorrect()
       this.handleFirstGuess()
       this.toggleRoundComplete()
       this.toggleToneGeneration()
       this.props.clearAnswerPitch()
+
     }
     else if
       ((this.state.responded === false) && (event.target.innerHTML !==
@@ -162,23 +162,43 @@ export default class ToneGame extends Component {
       this.toggleRoundComplete()
     }
   }
-// (this.props.answer_freq !== 0)
+
+  grabAnswer = (event) => {
+    debugger
+    console.log(event.target.value)
+  }
 
 
   render() {
     return(
       <React.Fragment>
         <h1>{this.props.game_type} Practice</h1>
-        {this.props.all_tones.map(tone => <button 
+        {(this.state.question_no === 0) ?
+            <React.Fragment>
+              <p>Add or remove quiz tones by clicking on the notes below. A4 - E5 are included by default.</p>
+            </React.Fragment> : null }
+        {this.props.all_tones.map(tone => <button key={tone.freq}
           onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</button>
         )}
         <p>{this.state.correct_no} of {this.state.question_no} correct</p>
+
+        {(this.state.completed === true && this.state.completed === true) ?
+          <p>Correct! Good job!</p> : null}
+
         <button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
           button>
           {(this.state.responded === true) && (this.state.completed === true) ? <button onClick={this.playFromState}>Hear Again</button> : null }
           <br/>
+
+          {(this.state.question_no === 0) ?
+            <>
+              <p>Selected, possible tones will appear below. Try to identify the pitch you hear!</p>
+              <p>(the round continues until you answer correctly)</p>
+            </>
+            : null }
           <br/>
+
           {(this.state.toneGenerated === true) ?
             this.props.active_tones.map(tone =>
             <Button pitch={tone.tone.split(" ")[0]} freq={tone.freq}
@@ -191,9 +211,3 @@ export default class ToneGame extends Component {
   }
 
 }
-//
-//
-// this.props.active_tones.map(note => <Button key={note.tone}
-// pitch={note.tone}
-// handleComparison={() => this.createTone(this.selectRandomToneObj)}
-// toneDetails={note} />)

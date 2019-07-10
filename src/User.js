@@ -1,18 +1,28 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import GameSettings from './GameSettings'
-import ToneGame from './ToneGame'
-import IntervalGame from './IntervalGame'
 
 export default class User extends Component {
 
+getStats = () => {
+  fetch("http://localhost:3000/api/v1/sessions")
+  .then(res => res.json())
+  .then(data => {
+    data.map(error => {
+      console.log(error.type_wrong)
+    })
+  })
+}
 
+
+// incomplete method above. Still unsure how to render directly to page.
+// Previously it just console.logged "Settings, bruh"
 
   render() {
     return(
       <React.Fragment>
         <h1>THIS IS USER COMPONENT</h1>
-        <button onClick={ () => console.log("Settings, bruh") }>Settings</button>
+        <button onClick={this.getStats}>Report</button>
         <div className="report">
           <p>This is the report div</p>
         </div>
@@ -23,33 +33,3 @@ export default class User extends Component {
     )
   }
 }
-
-// From App.js
-
-    // import React from 'react';
-    // import {
-    //   BrowserRouter as Router,
-    //   Route
-    // } from 'react-router-dom';
-    // import NavBar from '../components/NavBar';
-    // import Home from '../components/Home';
-    // import Actors from '../components/Actors';
-    // import Directors from '../components/Directors';
-    // import Movies from '../components/Movies';
-    //
-    //
-    // const App = (props) => {
-    //   return (
-    //     <Router>
-    //       <div className="app">
-    //         <NavBar />
-    //         <Route exact path="/" component={Home} />
-    //         <Route exact path="/actors" component={Actors} />
-    //         <Route exact path="/directors" component={Directors} />
-    //         <Route exact path="/movies" component={Movies} />
-    //       </div>
-    //     </Router>
-    //   );
-    // };
-    //
-    // export default App

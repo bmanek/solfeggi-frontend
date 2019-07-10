@@ -186,7 +186,6 @@ export default class GameSettings extends Component {;
     let selectedTone = this.state.all_tones.find(tone => tone.tone === event.target.innerText)
     let copy = [...this.state.active_tones]
     let filteredArray = copy.filter(tone => tone.tone !== selectedTone.tone)
-    console.log(filteredArray)
     if (this.state.active_tones.find(tone => tone.tone ===
       event.target.innerText)) {
       this.setState({
@@ -245,7 +244,6 @@ export default class GameSettings extends Component {;
                 handleToneSelection={this.handleToneSelection}
                 clearAnswerPitch={this.clearAnswerPitch}
                 game_type={this.state.game_type}
-                active_tones={this.state.active_tones}
                 answer_pitch={this.state.answer_pitch}
                 answer_freq={this.state.answer_freq}
                 handleAnswerPitch={this.handleAnswerPitch}

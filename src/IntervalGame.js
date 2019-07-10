@@ -15,7 +15,6 @@ export default class IntervalGame extends Component {
     }
   }
 
-
   handleFirstGuess = () => {
     this.setState({
       responded: true
@@ -77,7 +76,7 @@ export default class IntervalGame extends Component {
     if (this.state.toneGenerated === false) {
       this.generateToneAnswerButtons()
       let randomTone = getTone()
-      let newToneInState = this.createTone(randomTone)
+      // let newToneInState = this.createTone(randomTone)
       this.props.handleAnswerPitch(randomTone.tone.split(" ")[0])
       this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
@@ -117,7 +116,6 @@ export default class IntervalGame extends Component {
     oscillator.stop(.8)
     oscillator.connect(audioCtx.destination)
   }
-  // this.props.handleAnswer(num.tone.split(" ")[0])
 
   reportError = (event) => {
     fetch('http://localhost:3000/api/v1/sessions', {
@@ -137,7 +135,6 @@ export default class IntervalGame extends Component {
               console.log(data)
             })
   }
-
 
   handleComparison = (event) => {
     if ((this.state.responded === false) && (event.target.innerHTML ===
@@ -162,7 +159,6 @@ export default class IntervalGame extends Component {
       this.playFromState()
   }
 
-
   render() {
     return(
       <React.Fragment>
@@ -182,9 +178,3 @@ export default class IntervalGame extends Component {
   }
 
 }
-//
-//
-// this.props.options.map(note => <Button key={note.tone}
-// pitch={note.tone}
-// handleComparison={() => this.createTone(this.selectRandomToneObj)}
-// toneDetails={note} />)
