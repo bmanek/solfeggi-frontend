@@ -77,6 +77,7 @@ export default class ToneGame extends Component {
     if (this.state.toneGenerated === false) {
       this.generateToneAnswerButtons()
       let randomTone = getTone()
+      this.createTone(randomTone)
       this.props.handleAnswerPitch(randomTone.tone.split(" ")[0])
       this.props.handleAnswerFreq(randomTone.freq)
       this.clearBoard()
@@ -200,7 +201,7 @@ export default class ToneGame extends Component {
 
           {(this.state.toneGenerated === true) ?
             this.props.active_tones.map(tone =>
-            <Button pitch={tone.tone.split(" ")[0]} freq={tone.freq}
+            <Button pitch={tone.tone.split(" ")[0]} key={tone.tone} freq={tone.freq}
             handleComparison={this.handleComparison} />) : null }
           <br/>
         {(this.state.question_no > 0) ?
