@@ -11,7 +11,8 @@ export default class User extends Component {
 constructor(){
   super()
   this.state = {
-    errors: ""
+    errors: "",
+    clicked: false
   }
 }
 
@@ -20,7 +21,7 @@ getStats = () => {
   .then(res => res.json())
   .then(data => {
     this.displayErrors(this.countErrors(data))
-    })
+  }).then(this.handleClicked())
   }
 
 countErrors = (data) => {
@@ -54,7 +55,13 @@ countErrors = (data) => {
 
  displayErrors = (errors) => {
    this.setState({
-     errors: errors
+     errors: errors,
+   })
+ }
+
+ handleClicked = () => {
+   this.setState({
+     clicked: !this.state.clicked
    })
  }
 
@@ -74,7 +81,7 @@ countErrors = (data) => {
         <div className="report">
         <br>
         </br>
-          {(this.state.errors !== "") ?
+          {(this.state.clicked === true) ?
           this.state.errors.split(",").map(tone => {
             return(<li>{tone} errors</li>)}) : null }
         </div>
