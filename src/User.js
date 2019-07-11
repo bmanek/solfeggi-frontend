@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import GameSettings from './GameSettings'
+import { Button } from 'semantic-ui-react'
+
 
 export default class User extends Component {
 
@@ -65,7 +67,7 @@ countErrors = (data) => {
         <h1>Username</h1>
         <h2>You've played 14 games. Would you like to start a new one?</h2>
         <p>Click 'Report' to view your lifetime stats!</p>
-        <button onClick={this.getStats}>Report</button>
+        <Button onClick={this.getStats}>Report</Button>
         <div className="report">
         <br>
         </br>

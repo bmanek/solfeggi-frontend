@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import IntervalGame from './IntervalGame'
 import ToneGame from './ToneGame'
 import Keyboard from './Keyboard'
+import { Select } from 'semantic-ui-react'
+
 
 export default class GameSettings extends Component {;
 
@@ -295,12 +297,12 @@ export default class GameSettings extends Component {;
     return(
       <React.Fragment>
         <h1>THIS IS THE GAME-SETTINGS COMPONENT</h1>
-        <select value={this.state.game_type} onChange={(event) => this.handleGameType(event)}>
-          <option></option>
-          <option value="Tone">Tone</option>
-          <option value="Interval">Interval</option>
-          <option value="Keyboard">Keyboard</option>
-        </select>
+          <select value={this.state.game_type} onChange={(event) => this.handleGameType(event)}>
+            <option></option>
+            <option value="Tone">Tone</option>
+            <option value="Interval">Interval</option>
+            <option value="Keyboard">Keyboard</option>
+          </select>
         {this.switchGameType(this.state.game_type)}
         <br>
         </br>

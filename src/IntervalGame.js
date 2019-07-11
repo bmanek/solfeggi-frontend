@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Button from './Button'
+import Clicker from './Clicker'
 
 export default class IntervalGame extends Component {
 
@@ -97,7 +97,7 @@ export default class IntervalGame extends Component {
 
   generateToneAnswerButtons = () => {
     if (this.state.first === true) {
-      this.props.options.map(note => <Button key={note.tone}
+      this.props.options.map(note => <Clicker key={note.tone}
         pitch={note.tone.split(" ")[0]}
         handleComparison={this.handleComparison}
         toneDetails={note} />)

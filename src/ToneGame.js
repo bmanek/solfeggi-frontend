@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import Button from './Button'
+import Clicker from './Clicker'
+import { Button } from 'semantic-ui-react'
 
 export default class ToneGame extends Component {
 
@@ -107,7 +108,7 @@ export default class ToneGame extends Component {
 
   generateToneAnswerButtons = () => {
     if (this.state.first === true) {
-      this.props.active_tones.map(note => <Button key={note.tone}
+      this.props.active_tones.map(note => <Clicker key={note.tone}
         pitch={note.tone.split(" ")[0]}
         handleComparison={this.handleComparison}
         toneDetails={note} />)
@@ -188,8 +189,8 @@ export default class ToneGame extends Component {
             <React.Fragment>
               <p>Add or remove quiz tones by clicking on the notes below. A4 - E5 are included by default.</p>
             </React.Fragment> : null }
-        {this.props.all_tones.map(tone => <button key={tone.freq}
-          onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</button>
+        {this.props.all_tones.map(tone => <Button key={tone.freq}
+          onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</Button>
         )}
         <h3>{this.state.correct_no} of {this.state.question_no} correct</h3>
         {(this.state.grabbed === "") ? null : <p>Sorry, '{this.state.grabbed}'
@@ -198,10 +199,10 @@ export default class ToneGame extends Component {
         {(this.state.completed === true && this.state.completed === true) ?
           <p>Correct! Good job!</p> : null}
 
-        <button onClick={(event) =>
+        <Button onClick={(event) =>
           this.assignQuizTone(this.selectRandomToneObj, event)}>Hear Tone</
-          button>
-          {(this.state.responded === true) && (this.state.completed === true) ? <button onClick={this.playFromState}>Hear Again</button> : null }
+          Button>
+          {(this.state.responded === true) && (this.state.completed === true) ? <Button onClick={this.playFromState}>Hear Again</Button> : null }
           <br/>
 
           {(this.state.question_no === 0) ?
@@ -214,11 +215,11 @@ export default class ToneGame extends Component {
 
           {(this.state.toneGenerated === true) ?
             this.props.active_tones.map(tone =>
-            <Button pitch={tone.tone.split(" ")[0]} key={tone.tone} freq={tone.freq}
+            <Clicker pitch={tone.tone.split(" ")[0]} key={tone.tone} freq={tone.freq}
             handleComparison={this.handleComparison} />) : null }
           <br/>
         {(this.state.question_no > 0) ?
-        <button onClick={this.props.handleQuit}>Quit</button> : null}
+        <Button onClick={this.props.handleQuit}>Quit</Button> : null}
       </React.Fragment>
     )
   }
