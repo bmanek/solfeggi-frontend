@@ -61,9 +61,12 @@ countErrors = (data) => {
 // incomplete method above. Still unsure how to render directly to page.
 // Previously it just console.logged "Settings, bruh"
 
+// BEGINNING THE BUTTON TOGGLE FOR REPORT
+
   render() {
     return(
       <React.Fragment>
+        <img src="./public/solfeggi-banner.jpg"/>
         <h1>Username</h1>
         <h2>You've played 14 games. Would you like to start a new one?</h2>
         <p>Click 'Report' to view your lifetime stats!</p>
