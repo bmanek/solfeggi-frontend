@@ -45,7 +45,7 @@ export default class Keyboard extends Component {
           createTone={this.createTone}
           />)}
           <h3>Songs!</h3>
-          <p>Legend of Zelda: ?Song? :
+          <p>Legend of Zelda: Song of Time:
           [Triangle] D4, F4, A4, D4, F4, A4, C5, B4, G4, F4, G4, A4, D4, C4, E4, D4</p>
           <p>Funky Town: [Sine] B4, B4, A4, F#4, F#4, B4, E5, D#5, B4 </p>
       </React.Fragment>
