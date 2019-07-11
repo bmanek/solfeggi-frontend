@@ -8,6 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.banner {
+  height: auto;
+  margin-left: 2rem;
+  width: 20%;
+  float:left;
+}
+
+.mover {
+  margin-right: 19rem;
+}
+
 .bigbox {
   background-color: white;
   margin: 100px auto;

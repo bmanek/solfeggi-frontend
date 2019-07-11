@@ -287,7 +287,10 @@ export default class GameSettings extends Component {;
         return(
           <React.Fragment>
             {(this.state.answer_pitch !== "") ? this.handleReset() : null}
-            <p>Please select a game type</p>
+            <br>
+            </br>
+            <br>
+            </br>
           </React.Fragment>
         )
     }
@@ -296,7 +299,7 @@ export default class GameSettings extends Component {;
   render() {
     return(
       <React.Fragment>
-        <h1>THIS IS THE GAME-SETTINGS COMPONENT</h1>
+          <p>Select a game type from the window below</p>
           <select value={this.state.game_type} onChange={(event) => this.handleGameType(event)}>
             <option></option>
             <option value="Tone">Tone</option>

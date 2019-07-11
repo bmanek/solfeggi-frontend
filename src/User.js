@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {BrowserRouter as Router, Route } from 'react-router-dom';
 import GameSettings from './GameSettings'
 import { Button } from 'semantic-ui-react'
+import banner from './images/solfeggi-banner.jpg'
 
 
 export default class User extends Component {
@@ -55,7 +56,7 @@ countErrors = (data) => {
 
  displayErrors = (errors) => {
    this.setState({
-     errors: errors,
+     errors: errors
    })
  }
 
@@ -73,17 +74,20 @@ countErrors = (data) => {
   render() {
     return(
       <React.Fragment>
-        <img src="./public/solfeggi-banner.jpg"/>
-        <h1>Username</h1>
-        <h2>You've played 14 games. Would you like to start a new one?</h2>
-        <p>Click 'Report' to view your lifetime stats!</p>
-        <Button onClick={this.getStats}>Report</Button>
-        <div className="report">
+        <img className='banner' src={banner}/>
         <br>
         </br>
-          {(this.state.clicked === true) ?
-          this.state.errors.split(",").map(tone => {
-            return(<li>{tone} errors</li>)}) : null }
+        <h2>Hi, Ben! You've played 14 games. Would you like to start a new one?</h2>
+          <br>
+          </br>
+          <p className='mover'>Click 'Report' to view your lifetime stats!</p>
+          <Button onClick={this.getStats}>Report</Button>
+        <div className="report">
+          <br>
+          </br>
+            {(this.state.clicked === true) ?
+            this.state.errors.split(",").map(tone => {
+              return(<li>{tone} errors</li>)}) : null }
         </div>
         <Router>
           <Route exact path="/game-settings" component={GameSettings} />
