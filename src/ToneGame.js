@@ -176,7 +176,6 @@ export default class ToneGame extends Component {
     }
   }
 
-
   render() {
     return(
       <React.Fragment>
