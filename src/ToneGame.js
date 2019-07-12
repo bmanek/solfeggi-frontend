@@ -176,10 +176,6 @@ export default class ToneGame extends Component {
     }
   }
 
-  grabAnswer = (event) => {
-    console.log(event.target.value)
-  }
-
 
   render() {
     return(
@@ -189,8 +185,9 @@ export default class ToneGame extends Component {
             <React.Fragment>
               <p>Add or remove quiz tones by clicking on the notes below. A4 - E5 are included by default.</p>
             </React.Fragment> : null }
-        {this.props.all_tones.map(tone => <Button key={tone.freq}
-          onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone}</Button>
+        {this.props.all_tones.map(tone =>
+          <Button key={tone.freq}
+          onClick={(event) => this.props.handleToneSelection(event)}>{tone.tone} </Button>
         )}
         <h3>{this.state.correct_no} of {this.state.question_no} correct</h3>
         {(this.state.grabbed === "") ? null : <p>Sorry, '{this.state.grabbed}'

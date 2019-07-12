@@ -19,6 +19,10 @@ body {
   margin-right: 19rem;
 }
 
+.selected {
+  color: blue; 
+}
+
 .bigbox {
   background-color: white;
   margin: 100px auto;
