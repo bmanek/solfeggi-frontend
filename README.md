@@ -1,5 +1,27 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Solfeggi (front end)
+
+Solfeggi is the plural of the Italian word for 'ear-training', which is what this app does!
+
+After running the backend server (rails s in the console), type 'npm start' after navigating to the solfeggi-frontend directory in a different console, and clicking 'yes' when prompted to start the react server on a different port.
+
+## Modes
+
+After navigating to http://localhost:3001/game-settings, you'll see a dropdown menu that allows you to select which mode you want to play.
+
+### Tone
+
+Tone will allow you to attempt to match the pitches the app selects randomly, from a default range of A4-E5. You can add or remove tones from the range by clicking the corresponding buttons.
+
+### Interval
+
+Currently under construction
+
+### Keyboard
+
+This mode allows you to play the tones by pressing the corresponding buttons.
+
 ## Available Scripts
 
 In the project directory, you can run:
