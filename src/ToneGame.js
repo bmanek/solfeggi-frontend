@@ -24,6 +24,7 @@ export default class ToneGame extends Component {
     let audioCtx = new AudioContext()
     let oscillator = audioCtx.createOscillator()
     oscillator.type = "sine"
+    debugger
     oscillator.frequency.value = event.target.value
     oscillator.start()
     oscillator.stop(.8)

@@ -125,7 +125,7 @@ export default function ButtonList(props) {
                   <FormControlLabel
                     className={classes.button}
                     key={!!state.checked ? value.freq : value.tone}
-                    value={!!state.checked ? value.freq.toString() : value.tone.toString()}
+                    value={value.freq.toString()}
                     control={<Radio color={'primary'} />}
                     label={!!state.checked ? value.freq.toString() : value.tone.toString()}
                     labelPlacement={'bottom'}
