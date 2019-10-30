@@ -74,12 +74,12 @@ const useStyles = makeStyles(theme => ({
   },
   control: {
     padding: theme.spacing(2),
-    maxWidth: '75%',
+    maxWidth: '25em',
     margin: 'auto',
     marginTop: '5%'
   },
   button: {
-    padding: '.5em'
+    padding: '.25em'
   }
 }));
 

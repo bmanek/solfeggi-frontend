@@ -37,8 +37,6 @@ export default class ToneGame extends Component {
 
       <div>
 
-
-
         <ButtonList
           allTones={this.props.all_tones}
           createTone={this.createTone}
