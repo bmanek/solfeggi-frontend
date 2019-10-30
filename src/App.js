@@ -1,13 +1,11 @@
 import React from 'react';
-import User from './User'
+import GameSettings from './GameSettings'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <div className="bigbox">
-        <User />
-      </div>
+        <GameSettings />
     </div>
   );
 }
