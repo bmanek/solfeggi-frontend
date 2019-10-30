@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import Clicker from './Clicker'
 import ButtonList from './ButtonList'
-import { Button } from 'semantic-ui-react'
 
 export default class ToneGame extends Component {
 
@@ -24,8 +22,7 @@ export default class ToneGame extends Component {
     let audioCtx = new AudioContext()
     let oscillator = audioCtx.createOscillator()
     oscillator.type = "sine"
-    debugger
-    oscillator.frequency.value = event.target.value
+    oscillator.frequency.value = event.currentTarget.value
     oscillator.start()
     oscillator.stop(.8)
     oscillator.connect(audioCtx.destination)

@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import ToneGame from './ToneGame'
-import { Select } from 'semantic-ui-react'
-
 
 export default class GameSettings extends Component {;
 

@@ -1,68 +1,12 @@
 import React from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Radio from '@material-ui/core/Radio';
 import Paper from '@material-ui/core/Paper';
-import FormGroup from '@material-ui/core/FormGroup';
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
-
-const IOSSwitch = withStyles(theme => ({
-  root: {
-    width: 42,
-    height: 26,
-    padding: 0,
-    margin: theme.spacing(1),
-  },
-  switchBase: {
-    padding: 1,
-    '&$checked': {
-      transform: 'translateX(16px)',
-      color: theme.palette.common.white,
-      '& + $track': {
-        backgroundColor: '#52d869',
-        opacity: 1,
-        border: 'none',
-      },
-    },
-    '&$focusVisible $thumb': {
-      color: '#52d869',
-      border: '6px solid #fff',
-    },
-  },
-  thumb: {
-    width: 24,
-    height: 24,
-  },
-  track: {
-    borderRadius: 26 / 2,
-    border: `1px solid ${theme.palette.grey[400]}`,
-    backgroundColor: theme.palette.grey[50],
-    opacity: 1,
-    transition: theme.transitions.create(['background-color', 'border']),
-  },
-  checked: {},
-  focusVisible: {},
-}))(({ classes, ...props }) => {
-  return (
-    <Switch
-      focusVisibleClassName={classes.focusVisible}
-      disableRipple
-      classes={{
-        root: classes.root,
-        switchBase: classes.switchBase,
-        thumb: classes.thumb,
-        track: classes.track,
-        checked: classes.checked,
-      }}
-      {...props}
-    />
-  );
-});
-
+import Button from '@material-ui/core/Button';
+import EqualizerIcon from '@material-ui/icons/Equalizer';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,66 +20,70 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     maxWidth: '25em',
     margin: 'auto',
-    marginTop: '5%'
+    marginTop: '5%',
   },
   button: {
-    padding: '.25em'
+    margin: '1em',
+    backgroundColor: 'primary'
   }
 }));
 
 export default function ButtonList(props) {
 
-  const [spacing, setSpacing] = React.useState(2);
   const classes = useStyles();
 
-  const handleChange = event => {
-    setSpacing(Number(event.target.value));
+  const [type, setType] = React.useState('Freq');
+
+  const handleChange = (event, newType) => {
+    debugger
+    setType(newType);
   };
 
+  const children = [
 
-  const [state, setState] = React.useState({
-    checked: true,
-  });
+    <ToggleButton key={1} value="Freq" disabled={type === 'Freq' ? true : false}>
+      <EqualizerIcon color="secondary"/>
+    </ToggleButton>,
 
-  const changeSwitch = name => event => {
-    setState({ ...state, [name]: event.target.checked });
-  };
-
+    <ToggleButton key={2} value="Tone" disabled={type === 'Tone' ? true : false}>
+      <MusicNoteIcon color="secondary"/>
+    </ToggleButton>,
+  ];
 
   return (
 
+    <div>
+
         <Paper className={classes.control}>
 
-        <IOSSwitch
-          checked={state.checked}
-          onChange={changeSwitch('checked')}
-          value="checked"
-        />
+          <ToggleButtonGroup size="small" value={type} exclusive onChange={handleChange}>
+            {children}
+          </ToggleButtonGroup>
 
-          <Grid container>
-            <Grid item>
-              <RadioGroup
-                name="spacing"
-                aria-label="spacing"
-                value={spacing.toString()}
-                onChange={handleChange}
-                row
-              >
-                {props.allTones.map(value => (
-                  <FormControlLabel
-                    className={classes.button}
-                    key={!!state.checked ? value.freq : value.tone}
-                    value={value.freq.toString()}
-                    control={<Radio color={'primary'} />}
-                    label={!!state.checked ? value.freq.toString() : value.tone.toString()}
-                    labelPlacement={'bottom'}
-                    onClick={(event) => props.createTone(event)}
-                  />
-                ))}
-              </RadioGroup>
+            <Grid container>
+              <Grid item>
+
+                  {props.allTones.map(value => (
+                    <Button
+                      className={classes.button}
+                      key={type === 'Freq' ? value.freq : value.tone}
+                      value={value.freq.toString()}
+                      onClick={(event) => props.createTone(event)}
+                      size={'small'}
+                      variant="contained"
+                      color="primary"
+                    >
+
+                      {type === 'Freq' ? value.freq : value.tone}
+
+                    </Button>
+                  ))}
+
+              </Grid>
             </Grid>
-          </Grid>
         </Paper>
+
+      </div>
 
   );
 }
